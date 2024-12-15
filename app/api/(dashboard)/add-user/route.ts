@@ -5,7 +5,7 @@ import bcrypt from "bcryptjs";
 
 const prisma: any = new PrismaClient();
 
-const SECRET_KEY: any = process.env.SECRET_KEY;
+const SECRET_KEY: any = process.env.SECRET_KEY || 'secret_key';
 
 const ADMIN_ROLE = "2";
 
