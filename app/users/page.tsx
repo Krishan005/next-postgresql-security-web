@@ -342,10 +342,7 @@ const UserList = () => {
           <div className="mt-6">
             <h2 className="text-xl font-semibold">Existing Users</h2>
             <div className="overflow-x-auto mt-4 border border-gray-300 rounded-lg shadow-md">
-              <table
-                className="min-w-full "
-                style={{ height: "300px", overflowY: "scroll" }}
-              >
+              <table className="min-w-full">
                 <thead>
                   <tr>
                     <th className="px-4 py-2 border-b text-left text-sm font-semibold text-gray-700">
@@ -362,60 +359,67 @@ const UserList = () => {
                     </th>
                   </tr>
                 </thead>
-                <tbody>
-                  {users?.length > 0 ? (
-                    users?.map((user: any, index) => (
-                      <tr
-                        key={index}
-                        className={`${
-                          index % 2 === 0 ? "bg-gray-50" : "bg-white"
-                        } hover:bg-gray-100`}
-                      >
-                        <td className="px-4 py-2 border-b text-sm text-gray-800">
-                          {user.name}
-                        </td>
-                        <td className="px-4 py-2 border-b text-sm text-gray-800">
-                          {user.email}
-                        </td>
-                        <td className="px-4 py-2 border-b text-sm text-gray-800">
-                          {user.role === 2
-                            ? "Admin"
-                            : user.role === 1
-                            ? "Editor"
-                            : user.role === 0
-                            ? "User"
-                            : "Unknown"}
-                        </td>
-                        <td className="px-4 py-2 border-b text-sm text-gray-800 space-x-2">
-                          <button
-                            className="px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600"
-                            onClick={() => handleViewUser(user)}
-                          >
-                            View
-                          </button>
-                          {roleID == 2 ? (
+              </table>
+              <div
+                className="max-h-80 overflow-y-scroll"
+                style={{ height: "300px" }}
+              >
+                <table className="min-w-full">
+                  <tbody>
+                    {users?.length > 0 ? (
+                      users?.map((user: any, index) => (
+                        <tr
+                          key={index}
+                          className={`${
+                            index % 2 === 0 ? "bg-gray-50" : "bg-white"
+                          } hover:bg-gray-100`}
+                        >
+                          <td className="px-4 py-2 border-b text-sm text-gray-800">
+                            {user.name}
+                          </td>
+                          <td className="px-4 py-2 border-b text-sm text-gray-800">
+                            {user.email}
+                          </td>
+                          <td className="px-4 py-2 border-b text-sm text-gray-800">
+                            {user.role === 2
+                              ? "Admin"
+                              : user.role === 1
+                              ? "Editor"
+                              : user.role === 0
+                              ? "User"
+                              : "Unknown"}
+                          </td>
+                          <td className="px-4 py-2 border-b text-sm text-gray-800 space-x-2">
                             <button
-                              className="px-4 py-2 bg-yellow-500 text-white rounded hover:bg-yellow-600"
-                              onClick={() => openEditModal(user)}
+                              className="px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600"
+                              onClick={() => handleViewUser(user)}
                             >
-                              Edit
+                              View
                             </button>
-                          ) : null}
+                            {roleID == 2 ? (
+                              <button
+                                className="px-4 py-2 bg-yellow-500 text-white rounded hover:bg-yellow-600"
+                                onClick={() => openEditModal(user)}
+                              >
+                                Edit
+                              </button>
+                            ) : null}
+                          </td>
+                        </tr>
+                      ))
+                    ) : (
+                      <tr>
+                        <td
+                          colSpan={4}
+                          className="px-4 py-2 text-center text-gray-500"
+                        >
+                          No users available
                         </td>
                       </tr>
-                    ))
-                  ) : (
-                    <tr>
-                      <td
-                        colSpan={4}
-                        className="px-4 py-2 text-center text-gray-500"
-                      >
-                        No users available
-                      </td>
-                    </tr>
-                  )}
-                </tbody>
-              </table>
+                    )}
+                  </tbody>
+                </table>
+              </div>
             </div>
           </div>
 

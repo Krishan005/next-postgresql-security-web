@@ -193,66 +193,70 @@ const Dashboard = () => {
             <h2 className="text-xl font-semibold">Existing Charts</h2>
             {/* Scrollable and Responsive Container */}
             <div className="overflow-x-auto mt-4 border border-gray-300 rounded-lg shadow-md">
-              <table
-                className="min-w-full "
-                style={{ height: "300px", overflowY: "scroll" }}
-              >
+              <table className="min-w-full">
                 <thead>
                   <tr>
-                    <th className="px-4 py-2 border-b text-left text-sm font-semibold ">
+                    <th className="px-4 py-2 border-b text-left text-sm font-semibold">
                       Chart Title
                     </th>
-                    <th className="px-4 py-2 border-b text-left text-sm font-semibold ">
+                    <th className="px-4 py-2 border-b text-left text-sm font-semibold">
                       Chart ID
                     </th>
-                    <th className="px-4 py-2 border-b text-left text-sm font-semibold ">
+                    <th className="px-4 py-2 border-b text-left text-sm font-semibold">
                       Created At
                     </th>
-                    <th className="px-4 py-2 border-b text-left text-sm font-semibold ">
+                    <th className="px-4 py-2 border-b text-left text-sm font-semibold">
                       Actions
                     </th>
                   </tr>
                 </thead>
-                <tbody>
-                  {charts.length > 0 ? (
-                    charts.map((chart: any, index) => (
-                      <tr
-                        key={index}
-                        className={`${
-                          index % 2 === 0 ? "bg-gray-50" : "bg-white"
-                        } hover:bg-gray-100`}
-                      >
-                        <td className="px-4 py-2 border-b text-sm text-gray-800">
-                          {chart.name}
-                        </td>
-                        <td className="px-4 py-2 border-b text-sm text-gray-800">
-                          {chart.chartId}
-                        </td>
-                        <td className="px-4 py-2 border-b text-sm text-gray-800">
-                          {new Date(chart.createAt).toDateString()}
-                        </td>
-                        <td className="px-4 py-2 border-b text-sm text-gray-800">
-                          <button
-                            className="px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600"
-                            onClick={() => handleViewChart(chart.chartId)}
-                          >
-                            View
-                          </button>
+              </table>
+              <div
+                className="max-h-80 overflow-y-scroll"
+                style={{ height: "300px" }}
+              >
+                <table className="min-w-full">
+                  <tbody>
+                    {charts.length > 0 ? (
+                      charts.map((chart: any, index) => (
+                        <tr
+                          key={index}
+                          className={`${
+                            index % 2 === 0 ? "bg-gray-50" : "bg-white"
+                          } hover:bg-gray-100`}
+                        >
+                          <td className="px-4 py-2 border-b text-sm text-gray-800">
+                            {chart.name}
+                          </td>
+                          <td className="px-4 py-2 border-b text-sm text-gray-800">
+                            {chart.chartId}
+                          </td>
+                          <td className="px-4 py-2 border-b text-sm text-gray-800">
+                            {new Date(chart.createAt).toDateString()}
+                          </td>
+                          <td className="px-4 py-2 border-b text-sm text-gray-800">
+                            <button
+                              className="px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600"
+                              onClick={() => handleViewChart(chart.chartId)}
+                            >
+                              View
+                            </button>
+                          </td>
+                        </tr>
+                      ))
+                    ) : (
+                      <tr>
+                        <td
+                          colSpan={4}
+                          className="px-4 py-2 text-center text-gray-500"
+                        >
+                          No charts available
                         </td>
                       </tr>
-                    ))
-                  ) : (
-                    <tr>
-                      <td
-                        colSpan={4}
-                        className="px-4 py-2 text-center text-gray-500"
-                      >
-                        No charts available
-                      </td>
-                    </tr>
-                  )}
-                </tbody>
-              </table>
+                    )}
+                  </tbody>
+                </table>
+              </div>
             </div>
           </div>
 
