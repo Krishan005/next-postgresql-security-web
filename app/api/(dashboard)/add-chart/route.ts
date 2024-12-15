@@ -5,7 +5,7 @@ import jwt from "jsonwebtoken";
 const prisma: any = new PrismaClient();
 
 
-const SECRET_KEY: any = process.env.SECRATE_KEY;
+const SECRET_KEY: any = process.env.SECRATE_KEY || 'secret_key';
 
 export async function POST(request: Request) {
   try {

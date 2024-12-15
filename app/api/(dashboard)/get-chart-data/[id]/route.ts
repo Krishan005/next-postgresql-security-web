@@ -4,15 +4,12 @@ import jwt from "jsonwebtoken";
 
 const prisma: any = new PrismaClient();
 
-// Secret key for verifying the JWT (use environment variable)
-const SECRET_KEY: any = process.env.SECRATE_KEY;
+const SECRET_KEY: any = process.env.SECRATE_KEY || 'secret_key';
 
 export async function GET(request: Request) {
     try {
 
         
-       
-    // Extract and verify the token from the Authorization header
     const authHeader = request.headers.get("Authorization");
     if (!authHeader || !authHeader.startsWith("Bearer ")) {
       return NextResponse.json({
@@ -33,7 +30,6 @@ export async function GET(request: Request) {
       });
     }
 
-    // Extract the 'id' from query parameters
   const url = new URL(request.url);
       const id = request.url.split("/").pop()
       
@@ -46,7 +42,6 @@ export async function GET(request: Request) {
       });
     }
 
-      // Fetch chart data for the given 'id'
       const chart = await prisma.Chart.findUnique({
         where: { chartId: id },
     

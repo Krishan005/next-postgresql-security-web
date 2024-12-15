@@ -5,10 +5,8 @@ import bcrypt from "bcryptjs";
 
 const prisma: any = new PrismaClient();
 
-// Secret key for JWT (store securely in environment variables)
-const SECRET_KEY: any = process.env.SECRATE_KEY;
+const SECRET_KEY: any = process.env.SECRATE_KEY || 'secret_key'
 
-// Role-based authentication
 const ADMIN_ROLE = "1  ";
 
 export async function PATCH(request: Request) {
