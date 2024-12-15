@@ -17,7 +17,7 @@ const Sidebar = (props: any) => {
       className={`relative ${
         isOpen ? "w-64" : "w-16"
       } bg-gradient-to-r from-purple-600 via-blue-600 to-indigo-600 text-white h-full transition-all duration-300`}
-      style={props.name == "chart" ? { height: "300vh" } : { height: "100vh" }}
+      style={props.name == "chart" ? { height: "300vh" } : { height: "110vh" }}
     >
       {/* Button to toggle the sidebar */}
       <button

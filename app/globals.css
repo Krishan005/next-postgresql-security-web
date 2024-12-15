@@ -32,9 +32,3 @@ body {
   /* Backdrop should be slightly lower than the modal */
 }
 
- thead {
-   position: sticky;
-   top: 0;
-   z-index: -1;
-   /* Lower than the modal z-index */
- }

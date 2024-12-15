@@ -193,19 +193,22 @@ const Dashboard = () => {
             <h2 className="text-xl font-semibold">Existing Charts</h2>
             {/* Scrollable and Responsive Container */}
             <div className="overflow-x-auto mt-4 border border-gray-300 rounded-lg shadow-md">
-              <table className="min-w-full bg-white">
+              <table
+                className="min-w-full "
+                style={{ height: "300px", overflowY: "scroll" }}
+              >
                 <thead>
                   <tr>
-                    <th className="px-4 py-2 border-b text-left text-sm font-semibold text-gray-700">
+                    <th className="px-4 py-2 border-b text-left text-sm font-semibold ">
                       Chart Title
                     </th>
-                    <th className="px-4 py-2 border-b text-left text-sm font-semibold text-gray-700">
+                    <th className="px-4 py-2 border-b text-left text-sm font-semibold ">
                       Chart ID
                     </th>
-                    <th className="px-4 py-2 border-b text-left text-sm font-semibold text-gray-700">
+                    <th className="px-4 py-2 border-b text-left text-sm font-semibold ">
                       Created At
                     </th>
-                    <th className="px-4 py-2 border-b text-left text-sm font-semibold text-gray-700">
+                    <th className="px-4 py-2 border-b text-left text-sm font-semibold ">
                       Actions
                     </th>
                   </tr>

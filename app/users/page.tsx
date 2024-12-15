@@ -342,7 +342,10 @@ const UserList = () => {
           <div className="mt-6">
             <h2 className="text-xl font-semibold">Existing Users</h2>
             <div className="overflow-x-auto mt-4 border border-gray-300 rounded-lg shadow-md">
-              <table className="min-w-full bg-white">
+              <table
+                className="min-w-full "
+                style={{ height: "300px", overflowY: "scroll" }}
+              >
                 <thead>
                   <tr>
                     <th className="px-4 py-2 border-b text-left text-sm font-semibold text-gray-700">
