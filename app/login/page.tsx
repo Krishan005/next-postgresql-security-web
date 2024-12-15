@@ -4,6 +4,7 @@ import React, { useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
 import Cookies from "js-cookie";
 import { EyeIcon, EyeSlashIcon } from "@heroicons/react/24/outline";
+import Swal from "sweetalert2";
 
 export default function LoginPage() {
   const router = useRouter();
@@ -78,7 +79,12 @@ export default function LoginPage() {
         router.push("/dashboard");
       } else {
         const errorData = await response.json();
-        alert(errorData.message || "Login failed");
+        // alert(errorData.message || "Login failed");
+        Swal.fire({
+          icon: "error",
+          title: "Login Failed",
+          text: errorData.message || "Login failed",
+        });
       }
     } catch (error) {
       alert("An error occurred during login");
