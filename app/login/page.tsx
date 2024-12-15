@@ -76,7 +76,7 @@ export default function LoginPage() {
         sessionStorage.setItem("token", responseData?.token);
         sessionStorage.setItem("user", responseData?.user);
         Cookies.set("token", responseData?.token, { expires: 1, path: "/" });
-        router.push("/dashboard");
+        window.location.href = "/dashboard";
       } else {
         const errorData = await response.json();
         // alert(errorData.message || "Login failed");
