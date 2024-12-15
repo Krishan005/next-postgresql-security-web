@@ -280,12 +280,7 @@ const ChartDetail = ({ params }: { params: Promise<{ id: string }> }) => {
 
             <div className="mt-4 overflow-y-auto max-h-[400px] shadow-lg rounded-lg">
               <table className="min-w-full bg-white">
-                <thead
-                  className="bg-gray-200 sticky top-0 z-10"
-                  style={{
-                    zIndex: "-1",
-                  }}
-                >
+                <thead className="bg-gray-200 sticky top-0 z-10">
                   <tr>
                     <th className="px-4 py-2 text-left text-xs sm:text-sm font-semibold text-gray-700">
                       Station
@@ -387,12 +382,7 @@ const ChartDetail = ({ params }: { params: Promise<{ id: string }> }) => {
 
             <div className="mt-4 overflow-y-auto max-h-[400px] shadow-lg rounded-lg">
               <table className="min-w-full bg-white">
-                <thead
-                  className="bg-gray-200 sticky top-0 z-10"
-                  style={{
-                    zIndex: "-1",
-                  }}
-                >
+                <thead className="bg-gray-200 sticky top-0 z-10">
                   <tr>
                     <th className="px-4 py-2 text-left text-xs sm:text-sm font-semibold text-gray-700">
                       Station
