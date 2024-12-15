@@ -2,6 +2,7 @@
 
 import React, { useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
+import Cookies from "js-cookie";
 
 export default function LoginPage() {
   const router = useRouter();
@@ -9,6 +10,7 @@ export default function LoginPage() {
   const [password, setPassword] = useState("");
   const [rememberMe, setRememberMe] = useState(false);
   const [errors, setErrors] = useState({ email: "", password: "" });
+  const [loading, setLoading] = useState(false);
 
   useEffect(() => {
     if (rememberMe) {
@@ -41,7 +43,9 @@ export default function LoginPage() {
   const handleSubmit = async (e: any) => {
     e.preventDefault();
 
-    if (!validate()) return; // Stop form submission if validation fails
+    if (!validate()) return;
+
+    setLoading(true);
 
     const formData = {
       email,
@@ -59,7 +63,6 @@ export default function LoginPage() {
       });
 
       if (response.status === 200) {
-        // Handle successful login (e.g., redirect to dashboard)
         if (rememberMe) {
           localStorage.setItem(
             "userLogs",
@@ -67,19 +70,19 @@ export default function LoginPage() {
           );
         }
 
-        var responseData = await response.json();
-
+        const responseData = await response.json();
         sessionStorage.setItem("token", responseData?.token);
         sessionStorage.setItem("user", responseData?.user);
-
+        Cookies.set("token", responseData?.token, { expires: 1, path: "/" });
         router.push("/dashboard");
       } else {
-        // Handle error (e.g., show error message)
         const errorData = await response.json();
         alert(errorData.message || "Login failed");
       }
     } catch (error) {
       alert("An error occurred during login");
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -90,7 +93,7 @@ export default function LoginPage() {
           <img src="/logo.png" alt="Logo" className="h-12 w-auto" />
         </div>
         <h2 className="text-2xl font-bold text-center mb-6">Login</h2>
-        <form onSubmit={handleSubmit} className="space-y-4">
+        <form method="POST" onSubmit={handleSubmit} className="space-y-4">
           <div>
             <label
               htmlFor="email"
@@ -154,9 +157,33 @@ export default function LoginPage() {
           </div>
           <button
             type="submit"
-            className="w-full bg-indigo-600 text-white py-2 px-4 rounded-lg shadow-lg hover:bg-indigo-700 focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
+            className="w-full bg-indigo-600 text-white py-2 px-4 rounded-lg shadow-lg hover:bg-indigo-700 focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 flex justify-center items-center"
+            disabled={loading}
           >
-            Login
+            {loading ? (
+              <svg
+                className="animate-spin h-5 w-5 text-white"
+                xmlns="http://www.w3.org/2000/svg"
+                fill="none"
+                viewBox="0 0 24 24"
+              >
+                <circle
+                  className="opacity-25"
+                  cx="12"
+                  cy="12"
+                  r="10"
+                  stroke="currentColor"
+                  strokeWidth="4"
+                ></circle>
+                <path
+                  className="opacity-75"
+                  fill="currentColor"
+                  d="M4 12a8 8 0 018-8v4a4 4 0 00-4 4H4z"
+                ></path>
+              </svg>
+            ) : (
+              "Login"
+            )}
           </button>
         </form>
         <p className="text-sm text-center text-gray-600 mt-6">

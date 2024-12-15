@@ -20,4 +20,24 @@ model User {
   email String  @unique
   phone String
   password String
+  role     Int  @default(0)
 }
+
+model Chart {
+  id       Int      @id @default(autoincrement())
+  name     String
+  chartId  String   @unique
+  createAt DateTime @default(now())
+}
+model ChartData {
+  id       Int      @id @default(autoincrement())
+  chartId  String   
+   NVAA    String
+   VAA     String
+   SVAA    String
+   UNB     String
+   TOTAL   String
+  createAt DateTime @default(now())
+}
+
+

@@ -20,3 +20,21 @@ body {
   background: var(--background);
   font-family: Arial, Helvetica, sans-serif;
 }
+
+
+.modal {
+  z-index: 1050;
+  /* Ensure this is higher than other elements */
+}
+
+.modal-backdrop {
+  z-index: 1040;
+  /* Backdrop should be slightly lower than the modal */
+}
+
+ thead {
+   position: sticky;
+   top: 0;
+   z-index: -1;
+   /* Lower than the modal z-index */
+ }

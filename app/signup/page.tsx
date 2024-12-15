@@ -12,8 +12,10 @@ export default function SignupPage() {
     phone: "",
     password: "",
     confirmPassword: "",
+    role: 0,
   });
   const [errors, setErrors] = useState<any>({});
+  const [loading, setLoading] = useState(false);
   const router = useRouter();
 
   const handleChange = (e: any) => {
@@ -43,6 +45,7 @@ export default function SignupPage() {
   const handleSubmit = async (e: any) => {
     e.preventDefault();
     if (validate()) {
+      setLoading(true);
       try {
         const response = await fetch("/api/api/signup", {
           method: "POST",
@@ -57,15 +60,13 @@ export default function SignupPage() {
         }
 
         const data = await response.json();
-        //   console.log("Signup successful:", data);
-
         if (data?.status === 200) {
           router.push("/login");
         }
-
-        // Perform further actions like redirecting the user
       } catch (error) {
         console.error("Error during signup:", error);
+      } finally {
+        setLoading(false);
       }
     }
   };
@@ -77,7 +78,7 @@ export default function SignupPage() {
           <img src="/logo.png" alt="Logo" className="h-12 w-auto" />
         </div>
         <h2 className="text-2xl font-bold text-center mb-6">Sign Up</h2>
-        <form onSubmit={handleSubmit} className="space-y-4">
+        <form method="post" onSubmit={handleSubmit} className="space-y-4">
           <div>
             <label
               htmlFor="name"
@@ -202,9 +203,33 @@ export default function SignupPage() {
           </div>
           <button
             type="submit"
-            className="w-full bg-indigo-600 text-white py-2 px-4 rounded-lg shadow-lg hover:bg-indigo-700 focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
+            className="w-full bg-indigo-600 text-white py-2 px-4 rounded-lg shadow-lg hover:bg-indigo-700 focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 flex justify-center items-center"
+            disabled={loading}
           >
-            Sign Up
+            {loading ? (
+              <svg
+                className="animate-spin h-5 w-5 text-white"
+                xmlns="http://www.w3.org/2000/svg"
+                fill="none"
+                viewBox="0 0 24 24"
+              >
+                <circle
+                  className="opacity-25"
+                  cx="12"
+                  cy="12"
+                  r="10"
+                  stroke="currentColor"
+                  strokeWidth="4"
+                ></circle>
+                <path
+                  className="opacity-75"
+                  fill="currentColor"
+                  d="M4 12a8 8 0 018-8v4a4 4 0 00-4 4H4z"
+                ></path>
+              </svg>
+            ) : (
+              "Sign Up"
+            )}
           </button>
         </form>
         <p className="text-sm text-center text-gray-600 mt-6">

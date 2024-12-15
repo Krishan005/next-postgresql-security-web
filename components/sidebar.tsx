@@ -2,8 +2,10 @@
 
 import "@fortawesome/fontawesome-free/css/all.min.css";
 import React, { useState } from "react";
+import { useRouter } from "next/navigation";
 
-const Sidebar = () => {
+const Sidebar = (props: any) => {
+  const router = useRouter();
   const [isOpen, setIsOpen] = useState(false); // Sidebar starts collapsed on mobile
 
   const toggleSidebar = () => {
@@ -15,6 +17,7 @@ const Sidebar = () => {
       className={`relative ${
         isOpen ? "w-64" : "w-16"
       } bg-gradient-to-r from-purple-600 via-blue-600 to-indigo-600 text-white h-full transition-all duration-300`}
+      style={props.name == "chart" ? { height: "300vh" } : { height: "100vh" }}
     >
       {/* Button to toggle the sidebar */}
       <button
@@ -29,14 +32,14 @@ const Sidebar = () => {
       <div className="mt-12">
         <ul>
           <li className={`p-4 hover:bg-gray-700 ${!isOpen ? "hidden" : ""}`}>
-            <a href="#">Dashboard</a>
+            <a href="/dashboard">Dashboard</a>
           </li>
           <li className={`p-4 hover:bg-gray-700 ${!isOpen ? "hidden" : ""}`}>
-            <a href="#">Settings</a>
+            <a href="/users">Users</a>
           </li>
-          <li className={`p-4 hover:bg-gray-700 ${!isOpen ? "hidden" : ""}`}>
+          {/* <li className={`p-4 hover:bg-gray-700 ${!isOpen ? "hidden" : ""}`}>
             <a href="#">Profile</a>
-          </li>
+          </li> */}
         </ul>
       </div>
     </div>
