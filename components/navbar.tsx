@@ -3,6 +3,23 @@ import React from "react";
 import { useRouter } from "next/navigation"; // If you're using Next.js
 import Cookies from "js-cookie";
 
+let userDetails: any = {};
+if (typeof window !== "undefined" && typeof sessionStorage !== "undefined") {
+  userDetails = JSON.parse(window.atob(String(sessionStorage.getItem("user"))));
+}
+const roleID = userDetails?.role;
+const email = userDetails?.email; // Extract email from user details
+
+// Determine role name based on roleID
+let roleName = "";
+if (roleID === 2) {
+  roleName = "Admin";
+} else if (roleID === 1) {
+  roleName = "Editor";
+} else if (roleID === 0) {
+  roleName = "User";
+}
+
 const Navbar = (props: any) => {
   const router = useRouter();
 
@@ -21,6 +38,10 @@ const Navbar = (props: any) => {
       <div className="flex justify-between items-center">
         <div className="text-xl font-bold">{props.name}</div>
         <div className="flex items-center space-x-4">
+          {/* Display Role Name */}
+          <span className="text-sm font-semibold">{roleName}</span>
+          {/* Display Email */}
+          <span className="text-sm font-semibold">{email}</span>
           <button
             onClick={handleLogout}
             className="bg-red-500 hover:bg-red-600 text-white px-4 py-2 rounded-md transition"
