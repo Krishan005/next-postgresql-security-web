@@ -1,6 +1,6 @@
 import { createSlice } from '@reduxjs/toolkit';
 
-// Function to retrieve user details from sessionStorage safely
+
 export const getUserFromSessionStorage = () => {
   if (typeof window !== "undefined" && window.sessionStorage) {
     const userData: any = sessionStorage.getItem('user');
@@ -10,7 +10,7 @@ export const getUserFromSessionStorage = () => {
 };
 
 const initialState = {
-  userDetails: null, // Initialize to null first
+  userDetails: null,
 };
 
 const userDetailsSlice = createSlice({
@@ -20,17 +20,17 @@ const userDetailsSlice = createSlice({
     setUser(state, action) {
       state.userDetails = action.payload;
       if (typeof window !== "undefined" && window.sessionStorage) {
-        sessionStorage.setItem('user', JSON.stringify(action.payload)); // Save to sessionStorage
+        sessionStorage.setItem('user', JSON.stringify(action.payload)); 
       }
     },
     clearUser(state) {
       state.userDetails = null;
       if (typeof window !== "undefined" && window.sessionStorage) {
-        sessionStorage.removeItem('user'); // Remove from sessionStorage
+        sessionStorage.removeItem('user'); 
       }
     },
     hydrateUser(state) {
-      // Hydrate the user state after rendering on the client
+
       state.userDetails = getUserFromSessionStorage();
     },
   },
@@ -40,5 +40,5 @@ export const { setUser, clearUser, hydrateUser } = userDetailsSlice.actions;
 
 export default userDetailsSlice.reducer;
 
-// Selector to get user details from Redux store
+
 export const selectUserDetails = (state: any) => state.userDetails.user;

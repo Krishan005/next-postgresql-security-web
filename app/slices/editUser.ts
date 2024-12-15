@@ -1,7 +1,7 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 import axios from 'axios';
 
-// Async thunk for updating a user
+
 export const updateUser:any = createAsyncThunk(
   'users/updateUser',
   async (userData, { rejectWithValue }) => {
@@ -14,19 +14,19 @@ export const updateUser:any = createAsyncThunk(
       });
       return response.data;
     } catch (error:any) {
-      // Return a rejected value for error handling in the slice
+    
       return rejectWithValue(error.response?.data || 'An error occurred');
     }
   }
 );
 
-// Slice for managing user updates
+
 const editUsersSlice = createSlice({
   name: 'editUsers',
   initialState: {
-    userUpdate: null, // User being updated
-    status: 'idle', // idle | loading | succeeded | failed
-    error: null, // Error message
+    userUpdate: null, 
+    status: 'idle',
+    error: null, 
   },
   reducers: {},
   extraReducers: (builder) => {
@@ -37,7 +37,7 @@ const editUsersSlice = createSlice({
       })
       .addCase(updateUser.fulfilled, (state, action) => {
         state.status = 'succeeded';
-        state.userUpdate = action.payload; // Update the user in the state
+        state.userUpdate = action.payload; 
         state.error = null;
       })
       .addCase(updateUser.rejected, (state:any, action) => {

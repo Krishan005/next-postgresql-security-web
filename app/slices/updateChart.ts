@@ -1,33 +1,30 @@
 import { createSlice, createAsyncThunk, PayloadAction } from '@reduxjs/toolkit';
 import axios from 'axios';
 
-// Define the Chart interface
+
 export interface Chart {
   name: string;
   chartId: string;
-  data: any; // Adjust this to match your data structure
+  data: any; 
 }
 
-// Define the state interface
 interface ChartState {
-  editChart: Chart[]; // Array of Chart objects
+  editChart: Chart[]; 
   editloading: boolean;
   editerror: string | null;
 }
 
-// Initial state for the chart slice
 const initialState: ChartState = {
   editChart: [],
   editloading: false,
   editerror: null,
 };
 
-// Create an async thunk for updating chart data
 export const updateChart = createAsyncThunk<Chart, Chart>(
   'chart/updateChart',
   async (updatedChart: Chart, { rejectWithValue }) => {
     try {
-      // Make a PUT request to the /api/get-update-chart-data route
+
       const response = await axios.put(
         `/api/get-update-chart-data`,
         updatedChart,
@@ -38,10 +35,10 @@ export const updateChart = createAsyncThunk<Chart, Chart>(
           },
         }
       );
-      return response.data; // Return the updated chart
+      return response.data;
     } catch (error: any) {
       if (error.response?.status === 400) {
-        // Handle 400 status (bad request)
+
         return rejectWithValue(error.response?.data?.error || 'Bad Request');
       }
       return rejectWithValue('Failed to update chart');
@@ -49,7 +46,7 @@ export const updateChart = createAsyncThunk<Chart, Chart>(
   }
 );
 
-// Create the slice
+
 const chartSlice = createSlice({
   name: 'chart',
   initialState,
@@ -64,7 +61,7 @@ const chartSlice = createSlice({
         state.editloading = false;
         const index = state.editChart.findIndex(chart => chart.chartId === action.payload.chartId);
         if (index !== -1) {
-          state.editChart[index] = action.payload; // Update the existing chart in the array
+          state.editChart[index] = action.payload; 
         }
       })
       .addCase(updateChart.rejected, (state, action) => {

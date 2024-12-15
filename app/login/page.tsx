@@ -3,6 +3,7 @@
 import React, { useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
 import Cookies from "js-cookie";
+import { EyeIcon, EyeSlashIcon } from "@heroicons/react/24/outline";
 
 export default function LoginPage() {
   const router = useRouter();
@@ -11,6 +12,7 @@ export default function LoginPage() {
   const [rememberMe, setRememberMe] = useState(false);
   const [errors, setErrors] = useState({ email: "", password: "" });
   const [loading, setLoading] = useState(false);
+  const [showPassword, setShowPassword] = useState(false);
 
   useEffect(() => {
     if (rememberMe) {
@@ -19,7 +21,6 @@ export default function LoginPage() {
       setEmail(formData.email);
       setPassword(formData.password);
       setRememberMe(true);
-      handleSubmit;
     }
   }, []);
 
@@ -124,23 +125,36 @@ export default function LoginPage() {
             >
               Password
             </label>
-            <input
-              type="password"
-              id="password"
-              name="password"
-              className={`mt-1 block w-full px-3 py-2 border ${
-                errors.password ? "border-red-500" : "border-gray-300"
-              } rounded-lg shadow-sm focus:ring-indigo-500 focus:border-indigo-500`}
-              placeholder="Enter your password"
-              value={password}
-              onChange={(e) => setPassword(e.target.value)}
-              required
-            />
+            <div className="relative">
+              <input
+                type={showPassword ? "text" : "password"}
+                id="password"
+                name="password"
+                className={`mt-1 block w-full px-3 py-2 border ${
+                  errors.password ? "border-red-500" : "border-gray-300"
+                } rounded-lg shadow-sm focus:ring-indigo-500 focus:border-indigo-500`}
+                placeholder="Enter your password"
+                value={password}
+                onChange={(e) => setPassword(e.target.value)}
+                required
+              />
+              <button
+                type="button"
+                onClick={() => setShowPassword(!showPassword)}
+                className="absolute inset-y-0 right-2 flex items-center text-gray-500"
+              >
+                {showPassword ? (
+                  <EyeSlashIcon className="h-5 w-5" />
+                ) : (
+                  <EyeIcon className="h-5 w-5" />
+                )}
+              </button>
+            </div>
             {errors.password && (
               <p className="text-red-500 text-sm">{errors.password}</p>
             )}
           </div>
-          <div className="flex items-center justify-between">
+          {/* <div className="flex items-center justify-between">
             <label className="flex items-center">
               <input
                 type="checkbox"
@@ -154,7 +168,7 @@ export default function LoginPage() {
             <a href="#" className="text-sm text-indigo-600 hover:underline">
               Forgot password?
             </a>
-          </div>
+          </div> */}
           <button
             type="submit"
             className="w-full bg-indigo-600 text-white py-2 px-4 rounded-lg shadow-lg hover:bg-indigo-700 focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 flex justify-center items-center"

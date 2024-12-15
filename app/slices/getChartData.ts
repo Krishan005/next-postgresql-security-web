@@ -1,24 +1,21 @@
 import { createSlice, createAsyncThunk, PayloadAction } from '@reduxjs/toolkit';
 import axios from 'axios';
 
-// Define the Chart interface
 export interface Chart {
   name: string;
   chartId: string;
-  data: any; // Adjust this type based on your data structure
+  data: any; 
 }
 
-// Define the state interface
 interface ChartState {
  
-  chartData: Chart | null; // Single chart data (fetched by ID)
+  chartData: Chart | null; 
 
-  chartDataLoading: boolean; // Loading state for single chart
+  chartDataLoading: boolean; 
 
-  chartDataError: string | null; // Error state for single chart
+  chartDataError: string | null; 
 }
 
-// Initial state for the chart slice
 const initialState: ChartState = {
 
   chartData: null,
@@ -27,11 +24,11 @@ const initialState: ChartState = {
 };
 
 
-// Create an async thunk for fetching a single chart by ID
+
 export const getChartById = createAsyncThunk<
-  Chart, // Return type
-  string, // Argument type (chart ID)
-  { rejectValue: string } // ThunkAPI reject value type
+  Chart, 
+  string, 
+  { rejectValue: string } 
 >(
   'chart/getChartById',
   async (id, { rejectWithValue }) => {
@@ -42,7 +39,7 @@ export const getChartById = createAsyncThunk<
           Authorization: `Bearer ${sessionStorage.getItem('token')}`,
         },
       });
-      return response.data; // Assuming the API returns { chart: {...} }
+      return response.data; 
     } catch (error: any) {
       return rejectWithValue(
         error.response?.data?.error || 'Failed to fetch chart data'
@@ -51,7 +48,6 @@ export const getChartById = createAsyncThunk<
   }
 );
 
-// Create the slice
 const chartSlice = createSlice({
   name: 'charts',
   initialState,
@@ -59,11 +55,11 @@ const chartSlice = createSlice({
   extraReducers: (builder) => {
     builder
    
-      // Handling getChartById
+
       .addCase(getChartById.pending, (state) => {
         state.chartDataLoading = true;
         state.chartDataError = null;
-        state.chartData = null; // Reset chart data during loading
+        state.chartData = null; 
       })
       .addCase(getChartById.fulfilled, (state, action: PayloadAction<Chart>) => {
         state.chartDataLoading = false;

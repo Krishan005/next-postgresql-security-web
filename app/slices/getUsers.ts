@@ -1,7 +1,6 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import axios from "axios";
 
-// Async thunk to fetch users
 export const getUsers = createAsyncThunk(
   "users/getUsers",
   async (_, thunkAPI) => {
@@ -21,7 +20,6 @@ export const getUsers = createAsyncThunk(
   }
 );
 
-// Initial state
 const initialState = {
   userList: [],
   userLoading: false,
