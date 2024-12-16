@@ -2,6 +2,7 @@
 
 import React, { useState } from "react";
 import { useRouter } from "next/navigation";
+import Swal from "sweetalert2";
 
 export default function SignupPage() {
   const [showPassword, setShowPassword] = useState(false);
@@ -62,6 +63,12 @@ export default function SignupPage() {
         const data = await response.json();
         if (data?.status === 200) {
           router.push("/login");
+        } else {
+          Swal.fire({
+            icon: "error",
+            title: "Error",
+            text: data?.message,
+          });
         }
       } catch (error) {
         console.error("Error during signup:", error);
