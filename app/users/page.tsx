@@ -46,7 +46,7 @@ const UserList = () => {
   const [showPassword, setShowPassword] = useState(false);
   const [showConfirmPassword, setShowConfirmPassword] = useState(false);
 
-  const { userList, userLoading, userError } = useAppSelector(
+  const { userList, newUserList, userLoading, userError } = useAppSelector(
     (state) => state.users
   );
 
@@ -63,7 +63,7 @@ const UserList = () => {
   useEffect(() => {
     if (userList) {
       const newData: any = userList;
-      setUsers(newData?.data);
+      setUsers(newUserList);
       setLoadingData(false);
     }
   }, [userList, addUserLoading, user, userUpdate]);

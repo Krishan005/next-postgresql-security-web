@@ -9,6 +9,7 @@ export interface Chart {
 
 interface ChartState {
   chartList: Chart[];
+  newchatsList: [],
   chartloading: boolean;
   charterror: string | null;
 }
@@ -16,6 +17,8 @@ interface ChartState {
 
 const initialState: ChartState = {
   chartList: [], 
+  newchatsList: [],
+
   chartloading: false,
   charterror: null,
 };
@@ -54,9 +57,10 @@ const chartSlice = createSlice({
         state.chartloading = true;
         state.charterror = null;
       })
-      .addCase(getCharts.fulfilled, (state, action: PayloadAction<Chart[]>) => {
+      .addCase(getCharts.fulfilled, (state:any, action: PayloadAction<Chart[]>) => {
         state.chartloading = false;
         state.chartList = action.payload;
+        state.newchatsList = JSON.parse(Buffer.from(state.chartList?.charts, 'base64').toString('utf-8'));
       })
       .addCase(getCharts.rejected, (state, action) => {
         state.chartloading = false;

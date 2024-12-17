@@ -34,7 +34,7 @@ const Dashboard = () => {
   const [charts, setCharts] = useState<any[]>([]);
   const [errors, setErrors] = useState<any>({});
 
-  const { chartList, chartloading, charterror } = useAppSelector(
+  const { chartList, newchatsList, chartloading, charterror } = useAppSelector(
     (state) => state.charts
   );
 
@@ -50,13 +50,15 @@ const Dashboard = () => {
 
   useEffect(() => {
     console.log("chartList", chartList);
+    // console.log("newchatsList", newchatsList);
 
     var chartListNew: any = chartList;
     console.log("chartList1", chartListNew);
-    if (chartListNew?.charts?.length > 0) {
+
+    if (newchatsList?.length > 0) {
       console.log("chartList2", chartList);
 
-      setCharts(chartListNew?.charts);
+      setCharts(newchatsList);
       setLoadingData(false);
     }
   }, [chartList, loadingData]);
@@ -217,8 +219,8 @@ const Dashboard = () => {
               >
                 <table className="min-w-full">
                   <tbody>
-                    {charts.length > 0 ? (
-                      charts.map((chart: any, index) => (
+                    {charts?.length > 0 ? (
+                      charts?.map((chart: any, index) => (
                         <tr
                           key={index}
                           className={`${

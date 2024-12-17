@@ -22,6 +22,7 @@ export const getUsers = createAsyncThunk(
 
 const initialState = {
   userList: [],
+  newUserList:[],
   userLoading: false,
   userError: null,
 };
@@ -37,9 +38,10 @@ const userSlice = createSlice({
         state.userLoading = true;
         state.userError = null;
       })
-      .addCase(getUsers.fulfilled, (state, action) => {
+      .addCase(getUsers.fulfilled, (state:any, action) => {
         state.userLoading = false;
         state.userList = action.payload;
+        state.newUserList = JSON.parse(Buffer.from(state.userList?.data, 'base64').toString('utf-8'));
       })
       .addCase(getUsers.rejected, (state:any, action) => {
         state.userLoading = false;

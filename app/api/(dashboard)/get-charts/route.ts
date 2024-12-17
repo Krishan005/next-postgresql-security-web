@@ -41,7 +41,7 @@ export async function GET(request: Request) {
     return NextResponse.json({
       status: 200,
       message: "Charts fetched successfully",
-      charts,
+      charts: Buffer.from(JSON.stringify(charts)).toString("base64"),
     });
   } catch (error) {
     console.error("Error fetching charts:", error);

@@ -32,7 +32,7 @@ export async function GET(request: Request) {
         return NextResponse.json({
             status: 200,
             message: "Users fetched successfully",
-            data: users,
+            data: Buffer.from(JSON.stringify(users)).toString("base64"),
         });
     } catch (error:any) {
         return NextResponse.json({

@@ -7,7 +7,9 @@ const prisma: any = new PrismaClient();
 const SECRET_KEY: any = process.env.SECRATE_KEY || 'secret_key';
 
 export async function GET(request: Request) {
-    try {
+  try {
+      
+  
 
         
     const authHeader = request.headers.get("Authorization");
